@@ -11022,5 +11022,44 @@
       "language": "English",
       "chunk": 19
     }
+  },
+  {
+    "text": "﻿Indian Standard: IS 374:2019\nTitle: Specification for electric ceiling type fans and regulators\nProduct/Application: Electric ceiling type fans and regulators\nSearch Keywords: ceiling fan, electric fan, ceiling type fan, fan regulator, electric ceiling fan\nSector: Electrical Appliances\nStandard Type: Product Specification\nCertification: BIS certification under applicable certification requirements\nOfficial Source: https://www.bis.gov.in/wp-content/uploads/2023/08/Electric-Ceiling-Type-Fans-QCO-2023.pdf\n\nIndian Standard: IS 456:2000\nTitle: Plain and reinforced concrete - Code of practice\nProduct/Application: Plain and reinforced concrete for general structural use\nSearch Keywords: concrete, reinforced concrete, RCC, structural concrete, building concrete\nSector: Civil Engineering\nStandard Type: Code of Practice\nCertification: Not identified from this catalog record\nOfficial Source: https://www.services.bis.gov.in/tmp/SR456.pdf\n\nIndian Standard: IS 269:2015\nTitle: Ordinary Portland cement - Specification\nProduct/Application: Ordinary Portland cement\nSearch Keywords: cement, OPC, ordinary portland cement, construction cement\nSector: Construction Materials\nStandard Type: Product Speci",
+    "metadata": {
+      "standard": "BIS_Standard_Catalog",
+      "clause": "Not identified",
+      "page": "Web page",
+      "source": "https://www.bis.gov.in/",
+      "document": "BIS_Standard_Catalog.txt",
+      "document_type": "BIS Web Page",
+      "language": "English",
+      "chunk": 1
+    }
+  },
+  {
+    "text": "nt - Specification\nProduct/Application: Ordinary Portland cement\nSearch Keywords: cement, OPC, ordinary portland cement, construction cement\nSector: Construction Materials\nStandard Type: Product Specification\nCertification: Applicable mandatory requirements should be verified against current BIS/QCO information\nOfficial Source: https://www.bis.gov.in/is-269-2015/?lang=en\n\nIndian Standard: IS 1786:2008\nTitle: High strength deformed steel bars and wires for concrete reinforcement - Specification\nProduct/Application: High strength deformed steel bars and wires for concrete reinforcement\nSearch Keywords: steel bars, reinforcement steel, TMT bars, rebars, reinforcement wires\nSector: Construction Materials\nStandard Type: Product Specification\nCertification: Verify current BIS/QCO requirements\nOfficial Source: https://lims.bis.gov.in/home/search_is_number/?is_number__doc_no=1786\n\nIndian Standard: IS 694:2010\nTitle: PVC insulated unsheathed and sheathed cables and cords with rigid and flexible conductor for rated voltages up to and including 1100 V\nProduct/Application: PVC insulated electrical cables and cords\nSearch Keywords: electrical cable, PVC cable, wire, power cable, 1100 V cable\nSe",
+    "metadata": {
+      "standard": "BIS_Standard_Catalog",
+      "clause": "Not identified",
+      "page": "Web page",
+      "source": "https://www.bis.gov.in/",
+      "document": "BIS_Standard_Catalog.txt",
+      "document_type": "BIS Web Page",
+      "language": "English",
+      "chunk": 2
+    }
+  },
+  {
+    "text": "conductor for rated voltages up to and including 1100 V\nProduct/Application: PVC insulated electrical cables and cords\nSearch Keywords: electrical cable, PVC cable, wire, power cable, 1100 V cable\nSector: Electrical\nStandard Type: Product Specification\nCertification: Mandatory certification\nOfficial Source: https://services.bis.gov.in/php/BIS_2.0/bisconnect/ISL/is_details?IDS=MTM4Mjk%3D\n\nIndian Standard: IS 2062:2025 Part 1\nTitle: Structural Steel - Part 1 - Hot Rolled Medium and High tensile Steel\nProduct/Application: Hot rolled structural steel\nSearch Keywords: structural steel, steel plate, hot rolled steel, construction steel\nSector: Construction Materials\nStandard Type: Product Specification\nCertification: Verify current BIS/QCO requirements\nOfficial Source: https://lims.bis.gov.in/home/search_is_number/?is_number__doc_no=2062",
+    "metadata": {
+      "standard": "BIS_Standard_Catalog",
+      "clause": "Not identified",
+      "page": "Web page",
+      "source": "https://www.bis.gov.in/",
+      "document": "BIS_Standard_Catalog.txt",
+      "document_type": "BIS Web Page",
+      "language": "English",
+      "chunk": 3
+    }
   }
 ]

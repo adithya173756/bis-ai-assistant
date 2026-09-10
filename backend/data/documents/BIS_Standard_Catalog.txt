@@ -1,0 +1,307 @@
+BIS STANDARD CATALOG
+Official BIS-oriented product-to-standard reference dataset.
+
+IMPORTANT:
+This catalog is a curated retrieval aid based on official BIS information.
+It is not a substitute for the complete Indian Standard.
+The assistant must not infer additional requirements that are not present
+in the retrieved evidence.
+
+============================================================
+STANDARD RECORD 1
+============================================================
+
+Indian Standard:
+IS 374:2019
+
+Title:
+Specification for electric ceiling type fans and regulators (Third Revision)
+
+Product / Application:
+Electric ceiling type fans and regulators
+
+Search Keywords:
+ceiling fan
+ceiling fans
+electric ceiling fan
+electric ceiling type fan
+BLDC ceiling fan
+fan regulator
+electric fan
+household ceiling fan
+electrical fan
+
+Sector:
+Electrical
+Consumer Appliances
+Electrical Appliances
+
+Standard Type:
+Product Specification
+
+Certification:
+BIS certification information is applicable to electric ceiling type fans
+under the Electric Ceiling Type Fans (Quality Control) Order, 2023.
+BIS documentation identifies Scheme-I for this product.
+
+Related Standard:
+IS 302-2-80:2017
+Household and similar electrical appliances - Safety:
+Part 2-80 Particular requirements for fans
+
+Official BIS Evidence:
+BIS LIMS lists IS 374 (2019) as:
+"Specification for electric ceiling type fans and regulators (Third Revision)"
+
+Official Source:
+https://www.services.bis.gov.in/tmp/tbl5_2024-11-07_1113.pdf
+
+Official BIS LIMS Source:
+https://lims.bis.gov.in/home/search_is_number/?is_number__doc_no=374
+
+============================================================
+STANDARD RECORD 2
+============================================================
+
+Indian Standard:
+IS 456:2000
+
+Title:
+Plain and reinforced concrete - Code of practice (Fourth Revision)
+
+Product / Application:
+Plain concrete
+Reinforced concrete
+Concrete structures
+Building construction
+Structural concrete
+Reinforced concrete structures
+
+Search Keywords:
+concrete
+reinforced concrete
+RCC
+plain concrete
+RCC structure
+reinforced concrete structure
+building construction
+concrete building
+structural concrete
+concrete design
+
+Sector:
+Civil Engineering
+Construction
+Building Construction
+Structural Engineering
+
+Standard Type:
+Code of Practice
+
+Important Scope Evidence:
+The official BIS preview states that the standard deals with
+the general structural use of plain and reinforced concrete.
+
+Official Source:
+https://www.services.bis.gov.in/tmp/SR456.pdf
+
+Official BIS Standards Portal:
+https://standards.bis.gov.in/
+
+IMPORTANT:
+The available PDF is a preview and must not be presented as the complete
+Indian Standard.
+
+============================================================
+STANDARD RECORD 3
+============================================================
+
+Indian Standard:
+IS 269:2015
+
+Title:
+Ordinary Portland cement - Specification (Sixth Revision)
+
+Product / Application:
+Ordinary Portland cement
+
+Search Keywords:
+cement
+ordinary portland cement
+OPC
+Portland cement
+cement manufacturing
+cement product
+
+Sector:
+Construction
+Building Materials
+Cement
+
+Standard Type:
+Product Specification
+
+Official BIS Source:
+https://www.bis.gov.in/is-269-2015/?lang=en
+
+============================================================
+STANDARD RECORD 4
+============================================================
+
+Indian Standard:
+IS 1786:2008
+
+Title:
+High strength deformed steel bars and wires for concrete reinforcement -
+Specification (Fourth Revision)
+
+Product / Application:
+High strength deformed steel bars
+Steel reinforcement bars
+TMT bars
+Rebar
+Concrete reinforcement
+Reinforcement steel
+Construction steel
+
+Search Keywords:
+TMT
+TMT bar
+rebar
+reinforcement
+reinforcement bar
+steel bar
+deformed steel bar
+reinforcement steel
+concrete reinforcement
+Fe 415
+Fe 500
+Fe 500D
+Fe 550
+Fe 600
+
+Sector:
+Construction
+Steel
+Structural Engineering
+Civil Engineering
+
+Standard Type:
+Product Specification
+
+Official BIS LIMS Evidence:
+BIS LIMS lists IS 1786 (2008) as:
+"High strength deformed steel bars and wires for concrete reinforcement -
+Specification (Fourth Revision)"
+
+Official BIS LIMS Source:
+https://lims.bis.gov.in/home/search_is_number/?is_number__doc_no=1786
+
+============================================================
+STANDARD RECORD 5
+============================================================
+
+Indian Standard:
+IS 694:2010
+
+Title:
+Polyvinyl chloride insulated unsheathed and sheathed cables/cords
+with rigid and flexible conductor for rated voltages up to and including
+1100 V (Fourth Revision)
+
+Product / Application:
+PVC insulated cables
+PVC electrical cables
+Unsheathed PVC cables
+Sheathed PVC cables
+Electrical wires and cables
+Power cables
+Flexible PVC cables
+
+Search Keywords:
+PVC cable
+PVC cables
+electrical cable
+electric cable
+power cable
+PVC insulated cable
+wire
+electrical wire
+sheathed cable
+unsheathed cable
+FR cable
+FRLSH cable
+
+Sector:
+Electrical
+Power
+Cables
+Electrical Products
+
+Standard Type:
+Product Specification
+
+Certification:
+The BIS standard details page identifies IS 694:2010 as
+Mandatory Certification.
+
+Official BIS Standard Details:
+https://services.bis.gov.in/php/BIS_2.0/bisconnect/ISL/is_details?IDS=MTM4Mjk%3D
+
+Official BIS Standards Portal:
+https://standards.bis.gov.in/
+
+============================================================
+STANDARD RECORD 6
+============================================================
+
+Indian Standard:
+IS 2062:2025
+Part 1
+
+Title:
+Structural Steel - Part 1 - Hot Rolled Medium and High Tensile Steel
+
+Product / Application:
+Structural steel
+Hot rolled structural steel
+Steel plates
+Steel sections
+Structural steel products
+Construction steel
+
+Search Keywords:
+structural steel
+hot rolled steel
+steel plate
+steel section
+beam steel
+column steel
+structural metal
+construction steel
+medium tensile steel
+high tensile steel
+
+Sector:
+Construction
+Steel
+Structural Engineering
+
+Standard Type:
+Product Specification
+
+Official BIS LIMS Evidence:
+BIS LIMS currently lists:
+IS 2062 (Part 1) (2025)
+"Structural Steel - Part 1 - Hot Rolled Medium and High tensile Steel"
+
+Official BIS LIMS Source:
+https://lims.bis.gov.in/home/search_is_number/?is_number__doc_no=2062
+
+IMPORTANT:
+Do not substitute the older IS 2062:2011 edition when the current
+retrieved BIS evidence identifies IS 2062 (Part 1):2025.
+
+============================================================
+END OF CATALOG
+============================================================

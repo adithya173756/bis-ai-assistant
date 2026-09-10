@@ -1,4 +1,5 @@
 import os
+import re
 import time
 
 from dotenv import load_dotenv
@@ -87,11 +88,11 @@ def health():
 def generate_with_retry(client, prompt: str):
 
     models = [
-        "gemini-3.7-flash",
         "gemini-3.5-flash",
+        "gemini-.5-flash-lite",
     ]
 
-    retry_delays = [2, 4]
+    retry_delays = [2, 4, 8]
 
     for model_name in models:
 
@@ -113,10 +114,12 @@ def generate_with_retry(client, prompt: str):
                 )
 
                 if response and response.text:
+
                     print(
                         f"Gemini response received successfully "
                         f"from {model_name}."
                     )
+
                     return response.text.strip()
 
                 print("Gemini returned an empty response.")
@@ -130,33 +133,31 @@ def generate_with_retry(client, prompt: str):
                     f"{error_text}"
                 )
 
-                # Retry temporary 503 service errors
-                if "503" in error_text or "UNAVAILABLE" in error_text:
+                is_retryable = (
+                    "429" in error_text
+                    or "RESOURCE_EXHAUSTED" in error_text
+                    or "503" in error_text
+                    or "UNAVAILABLE" in error_text
+                    or "500" in error_text
+                    or "INTERNAL" in error_text
+                )
 
-                    if attempt < len(retry_delays):
+                if is_retryable and attempt < len(retry_delays):
 
-                        delay = retry_delays[attempt]
-
-                        print(
-                            f"Service temporarily unavailable. "
-                            f"Retrying in {delay} seconds..."
-                        )
-
-                        time.sleep(delay)
-
-                        continue
+                    delay = retry_delays[attempt]
 
                     print(
-                        f"{model_name} unavailable after retries. "
-                        f"Trying next model..."
+                        f"Temporary Gemini service/rate-limit error. "
+                        f"Retrying in {delay} seconds..."
                     )
 
-                    break
+                    time.sleep(delay)
 
-                # Do not retry other errors
+                    continue
+
                 print(
-                    "Non-retryable Gemini error. "
-                    "Trying next model..."
+                    f"{model_name} failed. "
+                    f"Trying the next Gemini model..."
                 )
 
                 break
@@ -190,6 +191,80 @@ def ask_bis(request: AskRequest):
         question,
         top_k=5
     )
+
+    # ---------------------------------------------------------
+    # Extract structured information from the top Standard
+    # Finder result
+    # ---------------------------------------------------------
+
+    standard_record = None
+
+    if retrieved:
+
+        top_item = retrieved[0]
+
+        top_metadata = top_item.get(
+            "metadata",
+            {}
+        )
+
+        top_text = top_item.get(
+            "text",
+            ""
+        )
+
+        top_standard = top_metadata.get(
+            "standard",
+            ""
+        )
+
+        top_document_type = top_metadata.get(
+            "document_type",
+            ""
+        )
+
+        if (
+            "Standard Catalog Record"
+            in top_document_type
+            and top_standard
+        ):
+
+            def extract_field(field_name):
+
+                pattern = (
+                    rf"{re.escape(field_name)}:\s*(.*)"
+                )
+
+                match = re.search(
+                    pattern,
+                    top_text,
+                    flags=re.IGNORECASE
+                )
+
+                if match:
+                    return match.group(1).strip()
+
+                return ""
+
+            standard_record = {
+                "standard": top_standard,
+                "title": extract_field("Title"),
+                "product_application": extract_field(
+                    "Product/Application"
+                ),
+                "sector": extract_field(
+                    "Sector"
+                ),
+                "standard_type": extract_field(
+                    "Standard Type"
+                ),
+                "certification": extract_field(
+                    "Certification"
+                ),
+                "official_source": extract_field(
+                    "Official Source"
+                ),
+            }
 
 
     if not retrieved:
@@ -246,61 +321,243 @@ Content:
 
     context = "\n".join(context_parts)
 
+# ---------------------------------------------------------
+    # Detect the type of BIS question
+    # ---------------------------------------------------------
 
-    # -----------------------------------------------------
+    question_lower = question.lower()
+
+    if any(
+        keyword in question_lower
+        for keyword in [
+            "which standard",
+            "what standard",
+            "indian standard",
+            "is number",
+            "is code",
+            "standard applies",
+            "applicable standard",
+        ]
+    ):
+        question_type = "STANDARD_FINDER"
+
+    elif any(
+        keyword in question_lower
+        for keyword in [
+            "certification",
+            "certify",
+            "license",
+            "licence",
+            "bis mark",
+            "apply for bis",
+            "conformity assessment",
+        ]
+    ):
+        question_type = "CERTIFICATION"
+
+    elif any(
+        keyword in question_lower
+        for keyword in [
+            "laboratory",
+            "laboratories",
+            "lab",
+            "testing lab",
+            "test facility",
+            "testing",
+        ]
+    ):
+        question_type = "LABORATORY"
+
+    elif any(
+        keyword in question_lower
+        for keyword in [
+            "hallmark",
+            "hallmarking",
+            "gold",
+            "silver jewellery",
+            "jewellery",
+            "jewelry",
+        ]
+    ):
+        question_type = "HALLMARKING"
+
+    elif any(
+        keyword in question_lower
+        for keyword in [
+            "compulsory",
+            "mandatory",
+            "qco",
+            "quality control order",
+        ]
+    ):
+        question_type = "COMPULSORY_CERTIFICATION"
+
+    else:
+        question_type = "GENERAL_BIS"
+
+    structured_standard_context = ""
+
+    if standard_record:
+
+        structured_standard_context = f"""
+STRUCTURED STANDARD FINDER RECORD
+
+Indian Standard:
+{standard_record.get("standard", "Not identified")}
+
+Title:
+{standard_record.get("title", "Not identified")}
+
+Product/Application:
+{standard_record.get("product_application", "Not identified")}
+
+Sector:
+{standard_record.get("sector", "Not identified")}
+
+Standard Type:
+{standard_record.get("standard_type", "Not identified")}
+
+Certification:
+{standard_record.get("certification", "Not identified")}
+
+Official Source:
+{standard_record.get("official_source", "Not identified")}
+"""
+
+
+   # -----------------------------------------------------
     # Prompt
     # -----------------------------------------------------
 
     prompt = f"""
-You are an AI assistant for the Bureau of Indian Standards (BIS).
+You are the AI assistant for an official-source-oriented
+BIS Standards and Services knowledge system.
 
-IMPORTANT LANGUAGE RULES:
+Answer the user's question ONLY using the retrieved BIS
+evidence provided below.
 
-1. Detect the language of the user's question automatically.
-2. Answer in the same language as the user's question.
-3. If the user asks in Hindi, answer in Hindi.
-4. If the user asks in Telugu, answer in Telugu.
-5. If the user asks in English, answer in English.
-6. Keep BIS names, Indian Standard numbers, technical terms,
-   form numbers and official terminology unchanged where necessary.
-7. Do not use Markdown headings such as ### unless they improve
-   readability.
-8. Use simple numbered points or short paragraphs for procedural
-   answers.
-9. Do not translate official Standard numbers such as IS 456:2000.
+USER QUESTION:
+{question}
+
+QUESTION TYPE:
+{question_type}
+
+{structured_standard_context}
+
+RETRIEVED BIS EVIDENCE:
+{context}
 
 IMPORTANT RULES:
 
-1. Do not invent BIS standards, clauses, page numbers,
-   certification requirements or technical requirements.
+1. Never invent an Indian Standard number.
 
-2. If the retrieved information does not contain enough
-   information to answer the question, clearly say that the
-   available BIS knowledge base does not contain sufficient
-   information.
+2. Never invent a clause, page number, certification
+requirement, testing requirement, or legal requirement.
 
-3. Explain the answer in simple language suitable for
-   manufacturers, industries and consumers.
+3. If an exact Indian Standard is present in the
+structured Standard Finder record, use that exact
+standard prominently.
 
-4. When possible, mention the relevant Standard, Clause and
-   Page exactly as provided in the retrieved context.
+4. Distinguish between:
+   - Indian Standard
+   - Product specification
+   - Code of practice
+   - BIS certification
+   - Conformity assessment scheme
+   - Quality Control Order
+   - Testing laboratory information
+   - Hallmarking information
 
-5. Do not claim that a clause exists if the retrieved context
-   does not identify it.
+5. Do not treat BIS certification information as the
+Indian Standard itself.
 
-6. Do not use outside knowledge.
+6. If the retrieved evidence is insufficient to identify
+an exact standard, explicitly say that the available BIS
+knowledge base does not contain sufficient evidence.
 
-7. Keep the answer concise but useful.
+7. When an official source is available in the evidence,
+include it.
 
-User question:
+8. Keep the answer understandable to students, industries
+and consumers.
 
-{question}
+9. Do not claim that a standard is mandatory unless the
+retrieved evidence supports that claim.
 
-Retrieved BIS context:
+10. Do not use knowledge outside the retrieved BIS evidence.
 
-{context}
+11. Adapt the answer to the detected QUESTION TYPE.
 
-Now provide the answer.
+STANDARD_FINDER:
+Identify the most relevant Indian Standard and clearly provide
+the IS number, title, product/application and supporting BIS
+evidence.
+
+CERTIFICATION:
+Explain the relevant BIS certification or conformity
+assessment information. Do not force an IS-number format.
+
+LABORATORY:
+Explain the relevant BIS laboratory/testing information.
+Mention laboratory sources or testing guidance supported by
+the evidence.
+
+HALLMARKING:
+Explain the relevant BIS hallmarking information. Do not
+force an IS-number format unless the evidence specifically
+supports a standard number.
+
+COMPULSORY_CERTIFICATION:
+Explain the relevant compulsory certification/QCO information.
+Clearly distinguish a mandatory requirement from a general BIS
+certification statement.
+
+GENERAL_BIS:
+Answer naturally using the most relevant retrieved BIS evidence.
+
+QUESTION TYPE:
+
+If the question asks which Indian Standard applies to a
+product, use this format:
+
+Recommended Indian Standard
+[exact IS number]
+
+Title
+[exact title from retrieved evidence]
+
+Product / Application
+[product/application]
+
+Sector
+[sector]
+
+Standard Type
+[standard type]
+
+Why this standard
+[brief explanation based only on retrieved evidence]
+
+Certification
+[only supported information]
+
+Testing
+[only supported information from retrieved evidence]
+
+Relevant BIS Evidence
+[brief evidence supporting the answer]
+
+Official BIS Source
+[source URL from retrieved evidence]
+
+For certification, laboratory, hallmarking, compulsory
+certification and general BIS questions, use a natural
+answer format appropriate to the question while still
+providing relevant BIS evidence and source information.
+
+Do not fabricate missing fields.
+
+ANSWER:
 """
 
 
@@ -366,7 +623,15 @@ Now provide the answer.
             "source": metadata.get(
                 "source",
                 "https://www.bis.gov.in/"
-            )
+            ),
+            "document_type": metadata.get(
+                "document_type",
+                ""
+            ),
+            "text": item.get(
+                "text",
+                ""
+            ).strip()
         })
 
 
